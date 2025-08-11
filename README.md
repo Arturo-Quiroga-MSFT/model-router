@@ -23,6 +23,26 @@ The exact set depends on what’s enabled in your Azure AI Foundry project and r
 
 Your environment may also include other families (for example, “gpt-5-chat” or “gpt-5 reasoning”) if available. The included examples and prompts are written to exercise a mix of small/fast, general chat, high-capability, and deep-reasoning routes.
 
+### Routed models (from Microsoft Docs)
+
+According to Microsoft documentation, the router’s underlying models depend on the router version you deploy. Examples:
+
+- model-router 2025-08-07
+  - Underlying models: gpt-4.1, gpt-4.1-mini, gpt-4.1-nano, o4-mini, gpt-5, gpt-5-mini, gpt-5-nano, gpt-5-chat
+  - Underlying model versions: 2025-04-14 (4.1 family), 2025-04-16 (o4-mini), 2025-08-07 (gpt-5 family)
+
+- model-router 2025-05-19
+  - Underlying models: gpt-4.1, gpt-4.1-mini, gpt-4.1-nano, o4-mini
+  - Underlying model versions: 2025-04-14 (4.1 family), 2025-04-16 (o4-mini)
+
+Source: Model router for Azure AI Foundry – Underlying models
+https://learn.microsoft.com/en-us/azure/ai-foundry/openai/concepts/model-router#underlying-models
+
+Notes
+- Latest model-router versions that include gpt-5 family may be limited access. See the linked doc for access requirements and availability.
+- Region availability varies; check the Models page for your region.
+- Context window limits are constrained by the specific model selected at runtime. A larger prompt succeeds only if routed to a model that supports the larger window; otherwise the call may fail.
+
 ### Typical routing patterns
 - Short transforms, classification, extraction → o4-mini (fast, low-cost)
 - General chat, polished writing, light coding → chat-oriented models (e.g., gpt-5-chat, if available)
