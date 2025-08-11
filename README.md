@@ -63,19 +63,14 @@ Your environment may also include other families (for example, “gpt-5-chat” 
 
 ### UI preview
 
-Below is a placeholder for the Gradio UI. Replace these with your own captures:
+![Gradio chat UI](image.png)
 
-![Gradio chat UI](assets/gradio-ui.png)
-
-Or an animated preview:
-
-![Gradio chat GIF](assets/gradio-ui.gif)
 
 Tips to capture:
 - macOS screenshot: Shift+Cmd+4
 - Quick GIF: QuickTime screen recording + convert to GIF (for example, via gifski or an online converter)
 
-4) Or run the simple sample
+1) Or run the simple sample
    - `python examples/foundry_sample.py`
    - The script prints the assistant’s reply and the model that served it.
 
