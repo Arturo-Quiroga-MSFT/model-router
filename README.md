@@ -12,18 +12,7 @@ This repo demonstrates the Azure AI Foundry model router: a single, deployable c
   - Consistent quality (larger or reasoning models when needed)
   - Future-ready (router can incorporate new models as they become available in your workspace)
 
-## Which models can it route to?
-
-The exact set depends on what’s enabled in your Azure AI Foundry project and region. Common examples include:
-
-- GPT-4.1 series (e.g., GPT-4.1 2025-04-14)
-- GPT-4.1-mini
-- GPT-4.1-nano
-- o4-mini
-
-Your environment may also include other families (for example, “gpt-5-chat” or “gpt-5 reasoning”) if available. The included examples and prompts are written to exercise a mix of small/fast, general chat, high-capability, and deep-reasoning routes.
-
-### Routed models (from Microsoft Docs)
+## Which models can it route to? (from Microsoft Docs)
 
 According to Microsoft documentation, the router’s underlying models depend on the router version you deploy. Examples:
 
