@@ -1,0 +1,48 @@
+Below are concrete prompts you can send to the Azure OpenAI model router to nudge it toward different choices among GPT-4.1 series, o4-mini, gpt-5-chat, and gpt-5 reasoning. Actual routing can vary by your org’s settings and the router’s heuristics, but these patterns are good triggers.
+
+Likely routes to gpt-5-chat (general conversation, polished writing, light coding)
+
+Write a friendly email apologizing for a delayed shipment and offering a 10% coupon. Keep it under 120 words.
+Explain vector databases to a product manager in plain English using three bullet points.
+Brainstorm 12 catchy taglines for a new cold-brew coffee brand.
+Improve the clarity and tone of this status update for executives; keep it concise and confident.
+Refactor this short JavaScript function for readability and add brief inline comments. (paste 15–30 lines)
+Likely routes to gpt-5 reasoning (deep, multi-step, or high-stakes tasks)
+
+Design an O(n log n) algorithm to find the k closest pairs among n 2D points. Prove correctness and analyze time/space.
+You’ll get a 2,000-word policy. Answer multi-part questions with precise citations to sections and page numbers. Prioritize accuracy over speed. (then paste doc)
+Solve the classic 12-coins puzzle (one coin is odd, heavier or lighter). Give the minimal number of weighings and the decision tree.
+Propose a statistically sound A/B test for a pricing change that might suffer from Simpson’s paradox. Specify metrics, segmentation, and tests.
+Write a SQL query to compute cohort retention by signup month with edge cases (late activations, missing events). Explain logic and complexity.
+Likely routes to o4-mini (fast, low-cost classification, extraction, short rewrites)
+
+Summarize this email thread in exactly three bullets, each under 15 words. Speed over completeness. (paste thread)
+Classify the sentiment of these 12 short reviews as POS/NEU/NEG and return JSON {id, sentiment}. (paste list)
+Extract all dates, currency amounts, and counterparties from this 200-word contract snippet; output CSV with columns date, amount, counterparty. (paste text)
+Translate these five sentences to Spanish, keep proper nouns unchanged, one line per sentence. (paste lines)
+Rewrite this paragraph at a 6th-grade reading level, max 80 words, no jargon. (paste paragraph)
+Likely routes to GPT-4.1 series (multimodal/vision or chart/diagram understanding)
+
+From this receipt image, list items, quantities, unit prices, tax, and total as a table. (attach image)
+Analyze this line chart image: summarize key trends, anomalies, and likely seasonality. (attach chart)
+OCR this UI screenshot, list visible labels and buttons, and note accessibility issues. (attach screenshot)
+From this scanned form, map fields into the given JSON schema; fill missing fields with null. (attach form + schema)
+Describe this network diagram and identify single points of failure with mitigation suggestions. (attach diagram)
+A/B prompt pairs that often flip routing
+
+Speed vs depth
+Fast: Summarize this 1,500-word article in 3 bullets; 75 tokens max; speed over completeness. (o4-mini)
+Deep: Produce a structured summary with section references and a short critique; accuracy over speed. (gpt-5 reasoning)
+Simple vs complex coding
+Simple: Write a Python function to validate an email format and add 3 tests. (gpt-5-chat)
+Complex: Design a distributed rate limiter for 50k RPS across 20 regions; discuss trade-offs and failure modes. (gpt-5 reasoning)
+Text-only vs multimodal
+Text-only: Explain what a candlestick chart represents to a beginner. (gpt-5-chat)
+With image: Given this candlestick chart image, identify any head-and-shoulders pattern and justify. (GPT-4.1 series)
+Tips to steer routing in your prompt
+
+State constraints explicitly: “speed over completeness,” “accuracy over speed,” “budget-sensitive,” or “take your time.”
+Signal modality by attaching images when you want multimodal handling.
+Ask for rigorous, verifiable outputs (citations, proofs, decision trees) when you want deeper reasoning.
+Keep tasks short and structured (classification/extraction/brief rewrite) when you want fast, low-cost handling.
+If you want domain-specific examples (e.g., healthcare, finance, legal), tell me your domain and I’ll tailor prompts that reliably exercise different routes.

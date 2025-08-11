@@ -1,0 +1,68 @@
+[1;31;34m
+Below are concrete example prompts and metadata hints you can use to exercise and prove the model router will pick each model type. For each target model I give:
+- one or two short sample user prompts that play to that model’s strengths,
+- suggested metadata or “routing hint” attributes (if your router supports capability, cost, latency, or purpose tags),
+- what to look for in the response so you can verify the router chose the expected model.
+
+1) Target: GPT-4.1 series (high-capability, long-context, complex reasoning + creative)
+- Sample prompts:
+  - “Draft a 900–1200 word white paper explaining how federated learning can be applied to hospital data across different regulatory jurisdictions. Include privacy challenges, a proposed architecture, and a three-step rollout plan.”
+  - “Analyze this multi-page technical specification (I will provide 10k tokens). Summarize each section, extract open questions, and produce a prioritized implementation checklist.”
+- Routing hints:
+  - capability: high
+  - context: long
+  - purpose: analysis / long-form
+- What to expect:
+  - long, structured output with headings, deep reasoning, and extended context handling. If you get a concise, highly structured long reply, router likely chose GPT-4.1.
+
+2) Target: o4-mini (small, fast, cost-efficient; best for short to medium factual responses, simple transformations)
+- Sample prompts:
+  - “Convert this product title list into lowercase kebab-case (comma-separated): ‘Wireless Headphones Pro, Bluetooth Speaker X3, Smartwatch Series 7’.”
+  - “Provide a one-sentence summary of the following paragraph: [short paragraph].”
+- Routing hints:
+  - cost: low
+  - latency: low
+  - purpose: transform / short-answer
+- What to expect:
+  - brief responses, fast turnaround, minimal creativity. If responses are short and direct, likely o4-mini.
+
+3) Target: gpt-5 reasoning models (top-tier stepwise reasoning, math, chain-of-thought style tasks, precise multi-step problem solving)
+- Sample prompts:
+  - “You are solving an optimization problem: maximize f(x,y)=3x+4y subject to 2x+3y ≤ 12, x,y≥0. Show step-by-step reasoning, derive the solution, and explain why it’s optimal.”
+  - “Given this complex legal contract clause with interdependent conditions, identify logical inconsistencies and provide an annotated list of each issue with recommended rewording.”
+- Routing hints:
+  - capability: extreme-reasoning
+  - purpose: logical-reasoning / math / verification
+  - accuracy: high
+- What to expect:
+  - detailed stepwise chains of reasoning, math derivations, error-checking and rigorous explanations. If the reply contains explicit step steps and deep logical analysis, router likely chose a gpt-5 reasoning model.
+
+4) Target: gpt-5-chat (best for multi-turn conversational experiences, nuanced instructions, persona-driven chat)
+- Sample prompts (multi-turn style):
+  - Turn 1: “Hi — I’m planning a two-week road trip across Oregon and Washington. I like hiking, coffee shops, and small museums. Help me plan a 14-day itinerary and I’ll ask follow-ups.”
+  - Turn 2 (follow-up): “I prefer shorter driving legs (under 3 hours). Can you adjust days 4–6 to avoid long drives and add one scenic stop each day?”
+- Routing hints:
+  - purpose: multi-turn-chat
+  - persona: assistant
+  - conversation: yes
+- What to expect:
+  - conversational tone, memory of prior turns (context-aware follow-ups), suggestions phrased as chat. If it behaves conversationally and keeps context across turns, likely gpt-5-chat.
+
+How to test and prove each route:
+- Use identical or similar prompts with explicit routing hints you believe the router uses, then remove hints and rely on natural characteristics. Compare:
+  - response length and structure,
+  - latency (o4-mini fast, larger models slower),
+  - whether the reply shows step-by-step reasoning vs concise transform,
+  - chat continuity across turns for gpt-5-chat.
+- If your router logs chosen model, capture logs for each test. If it doesn’t, use the behavioral signals above plus timing and verbosity to infer which model served each prompt.
+
+Quick test suite (one-liners you can run in sequence):
+1. Long technical synthesis prompt (expect GPT-4.1).
+2. Simple text transform (expect o4-mini).
+3. Complex math/logic with stepwise derivation (expect gpt-5 reasoning).
+4. Multi-turn conversational itinerary with follow-up changes (expect gpt-5-chat).
+
+If you want, I can convert the examples into a ready-made test script (requests + sample metadata) for the Azure OpenAI model router.
+[1;31;32m
+
+This model was automatically selected: gpt-5-mini-2025-08-07
