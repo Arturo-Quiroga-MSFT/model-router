@@ -63,7 +63,9 @@ Your environment may also include other families (for example, “gpt-5-chat” 
 
 ### UI preview
 
-![Gradio chat UI](image.png)
+![Gradio chat UI](./images/image.png)
+
+![Gradio chat UI](./images/image-1.png)
 
 
 Tips to capture:
