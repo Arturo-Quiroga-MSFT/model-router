@@ -43,18 +43,30 @@ Notes
 - Region availability varies; check the Models page for your region.
 - Context window limits are constrained by the specific model selected at runtime. A larger prompt succeeds only if routed to a model that supports the larger window; otherwise the call may fail.
 
-### Typical routing patterns
-- Short transforms, classification, extraction → o4-mini (fast, low-cost)
-- General chat, polished writing, light coding → chat-oriented models (e.g., gpt-5-chat, if available)
-- Deep/step-by-step reasoning, complex math/logic → reasoning models (if available)
-- Multimodal or long, structured synthesis → GPT-4.1 series
+### Typical routing patterns (per Microsoft Docs)
+- Simple tasks (short transforms, extraction, classification) → smaller/cheaper models (for example, o4-mini) to optimize latency and cost.
+- Complex tasks (deep reasoning, long structured synthesis) → larger or reasoning-capable models (for example, GPT-4.1 series; gpt-5 reasoning/chat where available) to maintain quality.
+- Vision inputs are accepted, but the routing decision is based on the text portion of the request. Models with vision capability may still be selected if indicated by the text and available in your environment.
+- Context window caveat: large prompts succeed only if routed to a model that supports the larger context window; otherwise, the call can fail. Consider summarizing/truncating, or using retrieval to reduce prompt size.
+- Latency/budget signals: when quality is sufficient, the router prefers smaller, faster models to reduce cost and response time.
 
-## When to use the model router
-- Mixed workloads where prompt difficulty varies widely across requests
-- Cost-sensitive apps that should default to small models but “boost” when needed
-- Customer support assistants (fast routing for FAQs; bigger models for tricky cases)
-- Content generation pipelines with guardrails on latency and spend
-- Vision or document-analysis scenarios alongside regular text chat
+Source: https://learn.microsoft.com/en-us/azure/ai-foundry/openai/concepts/model-router#underlying-models
+
+## When to use the model router (per Microsoft Docs)
+- You want a single deployment/endpoint that automatically balances quality, cost, and latency across diverse prompts.
+- Your workload has wide variability in complexity (some requests are simple, others require deeper reasoning or longer outputs).
+- You want to default to smaller/cheaper models but “escalate” automatically for harder prompts.
+- You’re okay with routing-driven variability (for example, context window depends on the selected underlying model).
+- You plan to take advantage of model updates over time (note: enabling auto-update can change the underlying set and affect cost/performance).
+
+Notes
+- If you require a guaranteed underlying model or fixed context window, pin a specific model instead of using the router.
+- Billing: today you’re billed for the underlying model usage. Per docs, router usage will also be billed starting September 1, 2025.
+- Region/model availability varies by subscription and region; check the Models page for the latest.
+
+Sources
+- Model router overview and limitations: https://learn.microsoft.com/en-us/azure/ai-foundry/openai/concepts/model-router
+- Model availability: https://learn.microsoft.com/en-us/azure/ai-foundry/openai/concepts/models
 
 ## Repo structure
 
